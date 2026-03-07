@@ -42,7 +42,7 @@ body {
 <script>
 async function checkBackend() {
     try {
-        const response = await fetch("http://127.0.0.1:8000/health/");
+        const response = await fetch(os.getenv('BACKEND_URL'));
         
         if (response.ok) {
             window.location.href = "index.html";
