@@ -6,6 +6,7 @@ dependencies = [
     "django>=6.0.2",
     "django-cors-headers>=4.9.0",
     "djangorestframework>=3.16.1",
+    "gunicorn>=25.1.0",
     "pillow>=12.1.1",
     "python-dotenv>=1.2.1",
     "whitenoise>=6.11.0",
