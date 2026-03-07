@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Carregando...</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #0f172a;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #334155;
+    border-top: 6px solid #38bdf8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="spinner"></div>
+<h2>🚀 Iniciando servidor...</h2>
+<p>Aguarde alguns segundos</p>
+
+<script>
+async function checkBackend() {
+    try {
+        const response = await fetch("http://127.0.0.1:8000/health/");
+        
+        if (response.ok) {
+            window.location.href = "index.html";
+            return;
+        }
+    } catch (error) {
+        console.log("Servidor dormindo...");
+    }
+
+    setTimeout(checkBackend, 3000);
+}
+
+checkBackend();
+</script>
+
+</body>
+</html>
