@@ -16,7 +16,7 @@ portfolio/
 │
 ├── backend/        # API e lógica do servidor (Django)
 │
-├── frontend/       # Interface do site (React ou HTML/CSS/JS)
+├── docs/       # Interface do site (React ou HTML/CSS/JS)
 │
 └── README.md
 ```
