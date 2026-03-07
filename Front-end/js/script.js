@@ -1,4 +1,4 @@
-
+import { API_URL } from "./config.js";
 
 fetch("header.html")
   .then(res => res.text())
@@ -11,8 +11,7 @@ fetch("footer.html")
 
 async function checkBackend() {
     try {
-        const response = await fetch("http://127.0.0.1:8000/health/");
-        
+          const response = await fetch(`${API_URL}/health/`);
         if (response.ok) {
             console.log("Servidor online...");
 
@@ -28,7 +27,7 @@ async function checkBackend() {
 }
 
 function carregarProjetos() {
-  fetch("http://127.0.0.1:8000/api/dev/projetos/")
+  fetch(`${API_URL}/api/dev/projetos/`)
     .then(response => response.json())
     .then(data => {
 
@@ -55,7 +54,7 @@ function carregarProjetos() {
 }
 
 function carregarCertificacoes(ordem) {
-  fetch(`http://127.0.0.1:8000/api/dev/certificacoes/?ordering=${ordem}`)
+  fetch(`${API_URL}/api/dev/certificacoes/?ordering=${ordem}`)
     .then(response => response.json())
     .then(data => {
       const container = document.getElementById("certificacoes-container");

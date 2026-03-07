@@ -39,10 +39,12 @@ body {
 <h2>🚀 Iniciando servidor...</h2>
 <p>Aguarde alguns segundos</p>
 
-<script>
+<script type="module" >
+     
+import { API_URL } from "./js/config.js";
 async function checkBackend() {
     try {
-        const response = await fetch(os.getenv('BACKEND_URL'));
+        const response = await fetch(`${API_URL}/health/`);
         
         if (response.ok) {
             window.location.href = "index.html";
