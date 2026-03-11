@@ -152,7 +152,7 @@ a {
   color: transparent;
 }
 .person-name h1{
-  font-size: clamp(40px, 8vw, 80px);
+  font-size: clamp(32px, 8vw, 80px);
 }
 .nome{
   font-size: 80px;
@@ -220,7 +220,7 @@ a {
   position: relative;
   flex-direction: column;
 
-  background-image: url('/docs/img/img1.jpg');
+  background-image: url('../img/img1.jpg');
   background-size: cover;
   background-position: top center;
 

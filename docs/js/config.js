@@ -1,1 +1,1 @@
-export const API_URL = "https://portfolio-geral.onrender.com"
+export const API_URL = "https://portfolio-geral.onrender.com";

@@ -10,20 +10,12 @@ fetch("footer.html")
 
 
 async function checkBackend() {
-    try {
-          const response = await fetch(`${API_URL}/health/`);
-        if (response.ok) {
-            console.log("Servidor online...");
-
-            return;
-        }
-    } catch (error) {
-        console.log("Servidor dormindo...");
-        window.location.href = "loading.html";
-
+    const response = await fetch(`${API_URL}/health/`);
+    if (!response.ok) {
+        throw new Error("Servidor dormindo"); // Isso vai ser capturado pelo catch lá embaixo
     }
-
-    setTimeout(checkBackend, 5000);
+    console.log("Servidor online!");
+    return true;
 }
 
 function carregarProjetos() {
@@ -73,7 +65,26 @@ function carregarCertificacoes(ordem) {
       });
     });
 }
-
-checkBackend();
-carregarProjetos();
-carregarCertificacoes('-emitido_em')
+async function iniciarSistema() {
+    try {
+        console.log("Verificando servidor...");
+        await checkBackend(); 
+        
+        // Se chegou aqui, é porque o backend respondeu OK
+        console.log("Servidor online! Carregando dados...");
+        carregarProjetos();
+        carregarCertificacoes('-emitido_em');
+        
+    } catch (error) {
+        console.log("Servidor dormindo, tentando novamente em 3 segundos...");
+        
+        // Verifica em qual página estamos antes de redirecionar
+        if (!window.location.pathname.includes("loading.html")) {
+            window.location.href = "loading.html";
+        }
+        
+        // Tenta de novo após 3 segundos
+        setTimeout(iniciarSistema, 3000);
+    }
+}
+iniciarSistema();
