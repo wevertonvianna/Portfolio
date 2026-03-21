@@ -7,15 +7,31 @@ fetch("footer.html")
   .then(res => res.text())
   .then(data => document.getElementById("footer").innerHTML = data);
 
-
-
 async function checkBackend() {
-    const response = await fetch(`${API_URL}/health/`);
-    if (!response.ok) {
-        throw new Error("Servidor dormindo"); // Isso vai ser capturado pelo catch lá embaixo
+    const controller = new AbortController();
+    const timeout = setTimeout(() => {
+        controller.abort();
+    }, 5000);
+
+    try {
+        const response = await fetch(`${API_URL}/health/`, {
+            signal: controller.signal
+        });
+        clearTimeout(timeout);
+        if (!response.ok) {
+            throw new Error("HTTP_ERROR");
+        }
+        console.log("Servidor online!");
+        return true;
+
+    } catch (error) {
+        if (error.name === "AbortError") {
+            console.log("Timeout: demorou mais de 5s");
+        } else {
+            console.log("Erro ao conectar:", error.message);
+        }
+        throw error;
     }
-    console.log("Servidor online!");
-    return true;
 }
 
 function carregarProjetos() {
